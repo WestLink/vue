@@ -9,7 +9,7 @@ declare type VNodeComponentOptions = {
 };
 
 declare type MountedComponentVNode = {
-  context: Component;
+  context: Component; // TODO 这个可以认为是组件实例的容器？
   componentOptions: VNodeComponentOptions;
   componentInstance: Component;
   parent: VNode;

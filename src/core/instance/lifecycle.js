@@ -41,6 +41,7 @@ export function initLifecycle (vm: Component) {
     parent.$children.push(vm)
   }
 
+  // TODO 变量前缀特殊符号的意义是啥？
   vm.$parent = parent
   vm.$root = parent ? parent.$root : vm
 
@@ -301,7 +302,7 @@ function isInInactiveTree (vm) {
 }
 
 export function activateChildComponent (vm: Component, direct?: boolean) {
-  if (direct) {
+  if (direct) { // TODO 这是啥意思？
     vm._directInactive = false
     if (isInInactiveTree(vm)) {
       return

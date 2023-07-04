@@ -42,6 +42,7 @@ export function extractPropsFromVNodeData (
           )
         }
       }
+      // 这个处理逻辑就是attrs包含了节点中不在props中的其他属性
       checkProp(res, props, key, altKey, true) ||
       checkProp(res, attrs, key, altKey, false)
     }

@@ -44,7 +44,7 @@ export function resolveAsyncComponent (
   factory: Function,
   baseCtor: Class<Component>
 ): Class<Component> | void {
-  if (isTrue(factory.error) && isDef(factory.errorComp)) {
+  if (isTrue(factory.error) && isDef(factory.errorComp)) { // 实例化出现了错误，返回错误组件
     return factory.errorComp
   }
 
@@ -58,7 +58,7 @@ export function resolveAsyncComponent (
     factory.owners.push(owner)
   }
 
-  if (isTrue(factory.loading) && isDef(factory.loadingComp)) {
+  if (isTrue(factory.loading) && isDef(factory.loadingComp)) { // 实例化中，返回实例化中组件
     return factory.loadingComp
   }
 
@@ -72,10 +72,11 @@ export function resolveAsyncComponent (
 
     const forceRender = (renderCompleted: boolean) => {
       for (let i = 0, l = owners.length; i < l; i++) {
+        // 更新watcher
         (owners[i]: any).$forceUpdate()
       }
 
-      if (renderCompleted) {
+      if (renderCompleted) { // 渲染已完成，清空待渲染列表及超时定时器
         owners.length = 0
         if (timerLoading !== null) {
           clearTimeout(timerLoading)

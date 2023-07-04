@@ -61,7 +61,7 @@ if (process.env.NODE_ENV !== 'production') {
         if (key in target.$data) warnReservedPrefix(target, key)
         else warnNonPresent(target, key)
       }
-      return has || !isAllowed
+      return has || !isAllowed // 本来就存在，或者是被允许使用的关键字
     }
   }
 

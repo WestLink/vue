@@ -98,6 +98,7 @@ var app = new Vue({
     },
 
     removeTodo: function (todo) {
+      console.log(this);
       this.todos.splice(this.todos.indexOf(todo), 1)
     },
 

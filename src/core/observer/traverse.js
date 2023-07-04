@@ -12,6 +12,7 @@ const seenObjects = new Set()
  * is collected as a "deep" dependency.
  */
 export function traverse (val: any) {
+  // TODO 没看出来是怎么调用了一遍getter
   _traverse(val, seenObjects)
   seenObjects.clear()
 }

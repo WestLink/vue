@@ -4,13 +4,13 @@ import type Watcher from '../src/core/observer/watcher'
 
 declare interface Component {
   // constructor information
-  static cid: number;
+  static cid: number; // 构造函数的ID，
   static options: Object;
   // extend
   static extend: (options: Object) => Function;
-  static superOptions: Object;
-  static extendOptions: Object;
-  static sealedOptions: Object;
+  static superOptions: Object; // 继承的选项
+  static extendOptions: Object; // mixin的选项
+  static sealedOptions: Object; // TODO 这意思冻结的属性？
   static super: Class<Component>;
   // assets
   static directive: (id: string, def?: Function | Object) => Function | Object | void;
@@ -20,10 +20,11 @@ declare interface Component {
   static FunctionalRenderContext: Function;
 
   // public properties
+  // 组件所依附的html节点
   $el: any; // so that we can attach __vue__ to it
   $data: Object;
   $props: Object;
-  $options: ComponentOptions;
+  $options: ComponentOptions; // 这是组件的选项，上面的options是构造函数的
   $parent: Component | void;
   $root: Component;
   $children: Array<Component>;
@@ -50,9 +51,9 @@ declare interface Component {
   $createElement: (tag?: string | Component, data?: Object, children?: VNodeChildren) => VNode;
 
   // private properties
-  _uid: number | string;
+  _uid: number | string; // 唯一标识
   _name: string; // this only exists in dev mode
-  _isVue: true;
+  _isVue: true; // 这地方直接赋值为true了
   _self: Component;
   _renderProxy: Component;
   _renderContext: ?Component;

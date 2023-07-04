@@ -1,21 +1,22 @@
 /* @flow */
 
 export default class VNode {
-  tag: string | void;
+  tag: string | void; // 节点构造函数的名称
   data: VNodeData | void;
-  children: ?Array<VNode>;
-  text: string | void;
-  elm: Node | void;
-  ns: string | void;
+  children: ?Array<VNode>; // 子节点，和下面的父节点整体形成一个虚拟节点树
+  text: string | void; // TODO 意思这是文本节点？
+  elm: Node | void; // 关联的真实节点
+  ns: string | void; // 命名空间
   context: Component | void; // rendered in this component's scope
   key: string | number | void;
+  // 虚拟节点对应的组件选项和实例对象
   componentOptions: VNodeComponentOptions | void;
   componentInstance: Component | void; // component instance
   parent: VNode | void; // component placeholder node
 
   // strictly internal
   raw: boolean; // contains raw HTML? (server only)
-  isStatic: boolean; // hoisted static node
+  isStatic: boolean; // hoisted static node 这应该指的是文本、注释之类的节点
   isRootInsert: boolean; // necessary for enter transition check
   isComment: boolean; // empty comment placeholder?
   isCloned: boolean; // is a cloned node?

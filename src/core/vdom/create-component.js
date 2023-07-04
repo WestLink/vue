@@ -38,7 +38,7 @@ const componentVNodeHooks = {
     if (
       vnode.componentInstance &&
       !vnode.componentInstance._isDestroyed &&
-      vnode.data.keepAlive
+      vnode.data.keepAlive // TODO 这个和路由里面的keepAlive是一回事儿吗
     ) {
       // kept-alive components, treat as a patch
       const mountedNode: any = vnode // work around flow
@@ -66,7 +66,7 @@ const componentVNodeHooks = {
 
   insert (vnode: MountedComponentVNode) {
     const { context, componentInstance } = vnode
-    if (!componentInstance._isMounted) {
+    if (!componentInstance._isMounted) {// 组件还未挂载的话，触发挂载的hook
       componentInstance._isMounted = true
       callHook(componentInstance, 'mounted')
     }
@@ -127,8 +127,8 @@ export function createComponent (
 
   // async component
   let asyncFactory
-  if (isUndef(Ctor.cid)) {
-    asyncFactory = Ctor
+  if (isUndef(Ctor.cid)) { // cid应该是一个组件实例的ID(但感觉又是一个构造函数的ID)，
+    asyncFactory = Ctor // 这时候把构造函数作为一个异步的组件创建工厂
     Ctor = resolveAsyncComponent(asyncFactory, baseCtor)
     if (Ctor === undefined) {
       // return a placeholder node for async component, which is rendered
@@ -212,10 +212,11 @@ export function createComponentInstanceForVnode (
   parent: any
 ): Component {
   const options: InternalComponentOptions = {
-    _isComponent: true,
+    _isComponent: true, // 注意一下，这里发生了私有变量的初始化
     _parentVnode: vnode,
     parent
   }
+  // TODO 内联模板和vue单文件模式的模板是一回事儿吗
   // check inline-template render functions
   const inlineTemplate = vnode.data.inlineTemplate
   if (isDef(inlineTemplate)) {
@@ -262,6 +263,7 @@ function transformModel (options, data: any) {
         ? existing.indexOf(callback) === -1
         : existing !== callback
     ) {
+      // TODO 意思是多个callback可以绑定到同一个事件？
       on[event] = [callback].concat(existing)
     }
   } else {

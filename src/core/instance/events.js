@@ -12,6 +12,7 @@ import { updateListeners } from '../vdom/helpers/index'
 export function initEvents (vm: Component) {
   vm._events = Object.create(null)
   vm._hasHookEvent = false
+  // TODO 父级事件是什么时候有的？
   // init parent attached events
   const listeners = vm.$options._parentListeners
   if (listeners) {

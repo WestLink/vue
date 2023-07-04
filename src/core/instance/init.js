@@ -29,7 +29,7 @@ export function initMixin (Vue: Class<Component>) {
     // a flag to avoid this being observed
     vm._isVue = true
     // merge options
-    if (options && options._isComponent) {
+    if (options && options._isComponent) { // TODO 从Component声明来看，这个字段一直就是true啊！
       // optimize internal component instantiation
       // since dynamic options merging is pretty slow, and none of the
       // internal component options needs special treatment.
@@ -49,7 +49,9 @@ export function initMixin (Vue: Class<Component>) {
     }
     // expose real self
     vm._self = vm
+    // 确定了父子关系，初始化生命周期变量标记
     initLifecycle(vm)
+    // 初始化点击等各种事件监听
     initEvents(vm)
     initRender(vm)
     callHook(vm, 'beforeCreate')
@@ -72,6 +74,7 @@ export function initMixin (Vue: Class<Component>) {
 }
 
 export function initInternalComponent (vm: Component, options: InternalComponentOptions) {
+  // constructor是对实例对象对应的构造函数的引用，所以options应该是构造函数的一个固定属性
   const opts = vm.$options = Object.create(vm.constructor.options)
   // doing this because it's faster than dynamic enumeration.
   const parentVnode = options._parentVnode
@@ -91,6 +94,7 @@ export function initInternalComponent (vm: Component, options: InternalComponent
 }
 
 export function resolveConstructorOptions (Ctor: Class<Component>) {
+  // TODO 构造函数上的options，可以理解为默认？
   let options = Ctor.options
   if (Ctor.super) {
     const superOptions = resolveConstructorOptions(Ctor.super)
@@ -106,7 +110,7 @@ export function resolveConstructorOptions (Ctor: Class<Component>) {
         extend(Ctor.extendOptions, modifiedOptions)
       }
       options = Ctor.options = mergeOptions(superOptions, Ctor.extendOptions)
-      if (options.name) {
+      if (options.name) { // TODO 这是干啥用的？组件会有多个子组件的意思？
         options.components[options.name] = Ctor
       }
     }

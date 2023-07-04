@@ -60,6 +60,7 @@ export function _createElement (
     return createEmptyVNode()
   }
   // object syntax in v-bind
+  // 这里应该就是动态组件，所以便签取值为is属性
   if (isDef(data) && isDef(data.is)) {
     tag = data.is
   }
@@ -95,6 +96,7 @@ export function _createElement (
   let vnode, ns
   if (typeof tag === 'string') {
     let Ctor
+    // TODO 类似getTagNamespace和isReservedTag这种方法并没有实现，这种是在何种时机注入的？
     ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag)
     if (config.isReservedTag(tag)) {
       // platform built-in elements

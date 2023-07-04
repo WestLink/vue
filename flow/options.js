@@ -9,7 +9,7 @@ declare type InternalComponentOptions = {
 type InjectKey = string | Symbol;
 
 declare type ComponentOptions = {
-  componentId?: string;
+  componentId?: string; // TODO 这个和组件里面的cid有啥区别
 
   // data
   data: Object | Function | void;
